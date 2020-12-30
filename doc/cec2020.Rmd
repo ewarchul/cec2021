@@ -176,7 +176,7 @@ cecb::cec_problem_grid(c(csa$bias_shift_rot, ppmf$bias_shift_rot), 21, config)
 #### ECDF curves
 
 ```{r}
-cecb::cec_class_grid(c(csa$bias_sfhit, ppmf$bias_shift), 10, 21, 30)
+cecb::cec_class_grid(c(csa$bias_shift, ppmf$bias_shift), 10, 21, 30)
 
 cecb::cec_problem_grid(c(csa$bias_shift, ppmf$bias_shift), 21, config)
 ```
