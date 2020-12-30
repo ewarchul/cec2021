@@ -85,8 +85,8 @@ cecb::cec_problem_grid(c(csa$basic, ppmf$basic), 21, config)
 
 ```{r}
 
-cecb::get_resultTable(csa$basic, 1:10, 10, caption = "CSA")
-cecb::get_resultTable(ppmf$basic, 1:10, 10, caption = "PPMF")
+cecb::get_resultTable(csa$basic, 1:10, 10, caption = "CSA (basic)")
+cecb::get_resultTable(ppmf$basic, 1:10, 10, caption = "PPMF (basic)")
 
 ```
 
@@ -104,8 +104,8 @@ cecb::cec_problem_grid(c(csa$rot, ppmf$rot), 21, config)
 #### CEC's tables N = 10
 
 ```{r}
-cecb::get_resultTable(csa$rot, 1:10, 10, caption = "CSA")
-cecb::get_resultTable(ppmf$rot, 1:10, 10, caption = "PPMF")
+cecb::get_resultTable(csa$rot, 1:10, 10, caption = "CSA (rot)")
+cecb::get_resultTable(ppmf$rot, 1:10, 10, caption = "PPMF (rot)")
 ```
 
 ### 3. Shift
@@ -122,8 +122,8 @@ cecb::cec_problem_grid(c(csa$shift, ppmf$shift), 21, config)
 #### CEC's tables N = 10
 
 ```{r}
-cecb::get_resultTable(csa$shift, 1:10, 10, caption = "CSA")
-cecb::get_resultTable(ppmf$shift, 1:10, 10, caption = "PPMF")
+cecb::get_resultTable(csa$shift, 1:10, 10, caption = "CSA (shift)")
+cecb::get_resultTable(ppmf$shift, 1:10, 10, caption = "PPMF (shift)")
 
 ```
 
@@ -139,8 +139,8 @@ cecb::cec_problem_grid(c(csa$bias, ppmf$bias), 21, config)
 #### CEC's tables N = 10
 
 ```{r}
-cecb::get_resultTable(csa$bias, 1:10, 10, caption = "CSA")
-cecb::get_resultTable(ppmf$bias, 1:10, 10, caption = "PPMF")
+cecb::get_resultTable(csa$bias, 1:10, 10, caption = "CSA (bias)")
+cecb::get_resultTable(ppmf$bias, 1:10, 10, caption = "PPMF (bias)")
 ```
 
 ### 5. Bias-shift-rot
@@ -156,8 +156,8 @@ cecb::cec_problem_grid(c(csa$bias_shift_rot, ppmf$bias_shift_rot), 21, config)
 #### CEC's tables N = 10
 
 ```{r}
-cecb::get_resultTable(csa$bias_shift_rot, 1:10, 10, caption = "CSA")
-cecb::get_resultTable(ppmf$bias_shift_rot, 1:10, 10, caption = "PPMF")
+cecb::get_resultTable(csa$bias_shift_rot, 1:10, 10, caption = "CSA (bias & shift & rot)")
+cecb::get_resultTable(ppmf$bias_shift_rot, 1:10, 10, caption = "PPMF (bias & shift & rot)")
 ```
 
 ### 6. Shift-rot
@@ -173,8 +173,8 @@ cecb::get_resultTable(ppmf$bias_shift_rot, 1:10, 10, caption = "PPMF")
 #### CEC's tables N = 10
 
 ```{r}
-#cecb::get_resultTable(csa$shift_rot, 1:10, 10, caption = "CSA")
-#cecb::get_resultTable(ppmf$shift_rot, 1:10, 10, caption = "PPMF")
+#cecb::get_resultTable(csa$shift_rot, 1:10, 10, caption = "CSA (shift & rot)")
+#cecb::get_resultTable(ppmf$shift_rot, 1:10, 10, caption = "PPMF (shift & rot)")
 ```
 
 ### 7. Bias-shift
@@ -189,8 +189,8 @@ cecb::cec_problem_grid(c(csa$bias_shift, ppmf$bias_shift), 21, config)
 #### CEC's tables N = 10
 
 ```{r}
-cecb::get_resultTable(csa$bias_shift, 1:10, 10, caption = "CSA")
-cecb::get_resultTable(ppmf$bias_shift, 1:10, 10, caption = "PPMF")
+cecb::get_resultTable(csa$bias_shift, 1:10, 10, caption = "CSA (bias & shift)")
+cecb::get_resultTable(ppmf$bias_shift, 1:10, 10, caption = "PPMF (bias & shift)")
 ```
 
 ### 8. Bias-rot
@@ -205,7 +205,7 @@ cecb::get_resultTable(ppmf$bias_shift, 1:10, 10, caption = "PPMF")
 #### CEC's tables N = 10
 
 ```{r}
-#cecb::get_resultTable(csa$bias_rot, 1:10, 10, caption = "CSA")
-#cecb::get_resultTable(ppmf$bias_rot, 1:10, 10, caption = "PPMF")
+#cecb::get_resultTable(csa$bias_rot, 1:10, 10, caption = "CSA (bias & rot)")
+#cecb::get_resultTable(ppmf$bias_rot, 1:10, 10, caption = "PPMF (bias & rot)")
 ```
 
