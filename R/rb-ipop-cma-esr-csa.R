@@ -32,7 +32,7 @@ rb_ipop_cma_esr_csa = function(
       list(stopOnIndefCovMat()),
       list(stopOnNoEffectAxis()),
       list(stopOnNoEffectCoord()),
-      list(stopOnLastItsMean()),
+      list(stopOnLastIts()),
       list(stopOnSigSupress())
     )
   stop.ons = getCMAESParameter(control, "stop.ons", stop_ons_list)
@@ -45,7 +45,7 @@ rb_ipop_cma_esr_csa = function(
 
   # restart mechanism (IPOP-CMA-ES)
   # RB-IPOP: new restart triggers ->  lastIts and sigSupress 
-  restart.triggers = list("conditionCov", "noEffectCoord", "noEffectAxis", "tolX", "indefCovMat", "lastItsMean", "sigSupress")
+  restart.triggers = list("conditionCov", "noEffectCoord", "noEffectAxis", "tolX", "indefCovMat", "lastIts", "sigSupress")
 
   stop.ons.names = sapply(stop.ons, function(stop.on) stop.on$code)
   if (!isSubset(restart.triggers, stop.ons.names)) {
@@ -59,6 +59,7 @@ rb_ipop_cma_esr_csa = function(
   #FIXME: default value should be derived from bounds
   sigma = getCMAESParameter(control, "sigma", 7)
   assertNumber(sigma, lower = 0L, finite = TRUE)
+  last_its_type = getCMAESParameter(control, "last_its_type", "mean")
 
   # Precompute E||N(0,I)||
 	chi.n = sqrt(n) * (1 - 1 / (4 * n) + 1 / (21 * n^2))
@@ -133,7 +134,7 @@ rb_ipop_cma_esr_csa = function(
     ccov = (1/cmu) * 2/(n+1.4)^2 + (1-1/cmu) * ((2*cmu-1)/((n+2)^2+2*cmu))
 
     # covariance matrix
-    sigma = getCMAESParameter(control, "sigma", 1)
+    sigma = getCMAESParameter(control, "sigma", 7)
     B = diag(n)
     D = diag(n)
     BD = B %*% D
@@ -144,7 +145,7 @@ rb_ipop_cma_esr_csa = function(
     restarting = FALSE
 
     # RB-IPOP variables 
-    meanPointFit = Inf
+    refPointFit = Inf
     sigma.repair.cnt = 0
 
     # break inner loop if terminating stopping condition active or
@@ -201,10 +202,21 @@ rb_ipop_cma_esr_csa = function(
       m = drop(x.best %*% weights)
 
       if (iter %% last_its == 0) {
-        oldMeanPointFit = meanPointFit
-        meanPointFit = fn(m)
-        n.evals = n.evals + 1
+        oldRefPointFit = refPointFit
+        if (last_its_type == "mean") {
+          refPointFit = fn(m)
+          n.evals = n.evals + 1
+        } else if (last_its_type == "ave") {
+          mean_point = apply(arx.repaired, 1, mean) %>% t() %>% t()
+          refPointFit = apply(mean_point, 2, function(x) fn(x))
+          n.evals = n.evals + 1
+        } else if (last_its_type == "best") {
+          refPointFit = best.fitness
+        } else {
+          stop("last_its_type = mean | ave | best")
+        }
       }
+
 
       y.best = ary[, new.pop.idx, drop = FALSE]
       y.w = drop(y.best %*% weights)
@@ -480,47 +492,23 @@ stopOnSigSupress = function(max_repairs = 5) {
   ))
 }
 
-#' RB-IPOP restart mechanism (expected value)
+#' RB-IPOP restart mechanism 
 
-stopOnLastItsMean = function(treshold = 1e-8) {
+stopOnLastIts = function(treshold = 1e-8) {
   assertInt(treshold, na.ok = FALSE)
   force(treshold)
   return(makeStoppingCondition(
-    name = "lastItsMean",
-    message = sprintf("The range of the mean point objective function values of lastIts iteration is zero."),
+    name = "lastIts",
+    message = sprintf("The range of the ref point objective function values of lastIts iteration is zero."),
     stop.fun = function(envir = parent.frame()) {
-      mean_delta = Inf
+      ref_delta = Inf
       if (envir$iter %% envir$last_its == 0) {
-        mean_delta = abs(envir$oldMeanPointFit - envir$meanPointFit)
-        print(mean_delta < treshold)
+        ref_delta = abs(envir$oldRefPointFit - envir$refPointFit)
       } 
-      return(mean_delta < treshold)
+      return(ref_delta < treshold)
     }
   ))
 }
-
-
-#' RB-IPOP restart mechanism (arithmetic mean)
-
-stopOnLastItsAveMean = function(treshold = 1e-8) {
-  assertInt(treshold, na.ok = FALSE)
-  force(treshold)
-  return(makeStoppingCondition(
-    name = "lastItsAveMean",
-    message = sprintf("The range of the mean (ave) point objective function values of lastIts iteration is zero."),
-    stop.fun = function(envir = parent.frame()) {
-      last_its = 30 + ceiling(30 * envir$n / envir$lambda)
-      if (envir$iter %% last_its) {
-        oldMeanPointFit = envir$meanPointFit
-        meanAvePoint = apply(envir$arx.repaired, 1, mean) %>% t() %>% t()
-        envir$meanPointFit = apply(meanAvePoint, 2, function(x) fn(x))
-        envir$n.evals = envir$n.evals + 1
-        return(abs(oldMeanPointFit - envir$meanPointFit) < treshold)
-      } 
-    }
-  ))
-}
-
 
 stopOnNoEffectAxis = function() {
   return(makeStoppingCondition(
