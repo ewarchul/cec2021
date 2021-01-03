@@ -1,5 +1,6 @@
 library(BBmisc)
 library(checkmate)
+library(magrittr)
 
 #' RB-IPOP-CMAES-CSA
 #'
@@ -60,6 +61,8 @@ rb_ipop_cma_esr_csa = function(
   sigma = getCMAESParameter(control, "sigma", 7)
   assertNumber(sigma, lower = 0L, finite = TRUE)
   last_its_type = getCMAESParameter(control, "last_its_type", "mean")
+
+  print(last_its_type)
 
   # Precompute E||N(0,I)||
 	chi.n = sqrt(n) * (1 - 1 / (4 * n) + 1 / (21 * n^2))
