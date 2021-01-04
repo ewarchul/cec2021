@@ -2,12 +2,11 @@ library(BBmisc)
 library(checkmate)
 library(magrittr)
 
-#' RB-IPOP-CMAES-PPMF
+#' RB-IPOP-CMAES-CSA
 #'
-#' @description Implementation of PPMF with IPOP rule based on https://ieeexplore.ieee.org/document/7969479
-#' @param last_its_type Type of LastIts restart trigger: mean | best | ave :: String
+#' @description Implementation of https://ieeexplore.ieee.org/document/7969479
 
-rb_ipop_cma_esr_ppmf_no_ss = function(
+rb_ipop_cma_esr_csa_no_ss = function(
   par,
   fn,
   ...,
@@ -60,9 +59,9 @@ rb_ipop_cma_esr_ppmf_no_ss = function(
   #FIXME: default value should be derived from bounds
   sigma = getCMAESParameter(control, "sigma", 7)
   assertNumber(sigma, lower = 0L, finite = TRUE)
-  d_param = getCMAESParameter(control, "d_param", 2)
-  p_target = getCMAESParameter(control, "p_target", 0.1)
   last_its_type = getCMAESParameter(control, "last_its_type", "mean")
+
+  print(last_its_type)
 
   # Precompute E||N(0,I)||
 	chi.n = sqrt(n) * (1 - 1 / (4 * n) + 1 / (21 * n^2))
@@ -91,9 +90,6 @@ rb_ipop_cma_esr_ppmf_no_ss = function(
 
   max_dx = (ub - lb) / 5
   last_its = 10 + ceiling(30 * n / (4 * n))
-  print(sigma)
-  print(d_param)
-  print(p_target)
 
   for (run in 0:max.restarts) {
     # population and offspring size
@@ -154,10 +150,6 @@ rb_ipop_cma_esr_ppmf_no_ss = function(
     refPointFit = Inf
     sigma.repair.cnt = 0
 
-    # PPMF variables 
-    eval_mean = Inf
-    eval_meanOld = Inf
-
     # break inner loop if terminating stopping condition active or
     # restart triggered
   	while (!restarting) {
@@ -211,7 +203,23 @@ rb_ipop_cma_esr_ppmf_no_ss = function(
       m.old = m
       m = drop(x.best %*% weights)
 
-      
+      if (iter %% last_its == 0) {
+        oldRefPointFit = refPointFit
+        if (last_its_type == "mean") {
+          refPointFit = fn(m)
+          n.evals = n.evals + 1
+        } else if (last_its_type == "ave") {
+          mean_point = apply(arx.repaired, 1, mean) %>% t() %>% t()
+          refPointFit = apply(mean_point, 2, function(x) fn(x))
+          n.evals = n.evals + 1
+        } else if (last_its_type == "best") {
+          refPointFit = best.fitness
+        } else {
+          stop("last_its_type = mean | ave | best")
+        }
+      }
+
+
       y.best = ary[, new.pop.idx, drop = FALSE]
       y.w = drop(y.best %*% weights)
       z.best = arz[, new.pop.idx, drop = FALSE]
@@ -234,30 +242,9 @@ rb_ipop_cma_esr_ppmf_no_ss = function(
         ccov * (1/cmu) * (pc %o% pc + (1-h.sigma) * cc*(2-cc) * C) +
         ccov * (1-1/cmu) * y %*% diag(weights) %*% t(y)
 
-      eval_meanOld = eval_mean
-      mean_point = apply(arx.repaired, 1, mean) %>% t() %>% t()
-      eval_mean = apply(mean_point, 2, function(x) fn(x))
-      n.evals = n.evals + 1
-
-      if (iter %% last_its == 0) {
-        oldRefPointFit = refPointFit
-        if (last_its_type == "mean") {
-          refPointFit = fn(m)
-          n.evals = n.evals + 1
-        } else if (last_its_type == "ave") {
-          refPointFit = eval_mean
-        } else if (last_its_type == "best") {
-          refPointFit = best.fitness
-        } else {
-          stop("last_its_type = mean | ave | best")
-        }
-      }
-
       # Update step-size sigma
-      p_succ = 
-        length(which(fitn.ordered < eval_meanOld))/lambda
-      sigma = 
-        sigma * exp(d_param * (p_succ - p_target) / (1 - p_target))
+      sigma <- sigma * exp((norm2(ps)/chi.n - 1)*cs/ds)
+
       
       # Finally do decomposition C = B D^2 B^T
       e = eigen(C, symmetric = TRUE)
@@ -269,7 +256,7 @@ rb_ipop_cma_esr_ppmf_no_ss = function(
       # escape flat fitness values
       # RB-IPOP: Increase sigma multiplier by 2
       if (fitn.ordered[1] == fitn.ordered[min(1+floor(lambda/2), 2+ceiling(lambda/4))]) {
-        sigma = 20 * sigma * exp(0.2 + cs / ds)
+        sigma = 2 * sigma * exp(0.2 + cs / ds)
       }
 
       # CHECK STOPPING CONDITIONS
@@ -306,7 +293,7 @@ rb_ipop_cma_esr_ppmf_no_ss = function(
       past.time = as.integer(difftime(Sys.time(), start.time, units = "secs")),
       n.iters = iter - 1L,
       n.restarts = run,
-      label = "rb_ipop_cma_esr_ppmf_no_ss",
+      label = "rb_ipop_cma_esr_csa",
       population.trace = population.trace,
       diagnostic = log,
       message = stop.obj$stop.msgs,
@@ -502,14 +489,14 @@ stopOnSigSupress = function(max_repairs = 5) {
   ))
 }
 
-#' RB-IPOP restart mechanism
+#' RB-IPOP restart mechanism 
 
 stopOnLastIts = function(treshold = 1e-8) {
   assertInt(treshold, na.ok = FALSE)
   force(treshold)
   return(makeStoppingCondition(
     name = "lastIts",
-    message = sprintf("The range of the reference point objective function values of lastIts iteration is zero."),
+    message = sprintf("The range of the ref point objective function values of lastIts iteration is zero."),
     stop.fun = function(envir = parent.frame()) {
       ref_delta = Inf
       if (envir$iter %% envir$last_its == 0) {
