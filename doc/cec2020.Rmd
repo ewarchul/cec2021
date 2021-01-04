@@ -1,9 +1,10 @@
 ---
 title: "CEC 2020 results"
 output:
-    pdf_document:
+    html_document:
         toc: true
         toc_depth: 4
+        toc_float: true
 ---
 
 ## Benchmark & algorithms setup 
@@ -68,6 +69,7 @@ ppmf = list(
     bias_shift = prefix %+% "ppmf/ipop-cma-es-ppmf-bias-shift"
 )
 config = list(dim = 10, problems = 1:10, repetitions = 30)
+config2 = list(dim = 20, problems = 1:10, repetitions = 30)
 
 ```
 
@@ -90,6 +92,23 @@ cecb::get_resultTable(ppmf$basic, 1:10, 10, caption = "PPMF (basic)")
 
 ```
 
+#### ECDF curves N = 20
+
+```{r}
+cecb::cec_class_grid(c(csa$basic, ppmf$basic), 20, 21, 30)
+cecb::cec_problem_grid(c(csa$basic, ppmf$basic), 21, config2)
+
+```
+
+#### CEC's tables N = 20
+
+```{r}
+
+cecb::get_resultTable(csa$basic, 1:10, 20, caption = "CSA (basic)")
+cecb::get_resultTable(ppmf$basic, 1:10, 20, caption = "PPMF (basic)")
+
+```
+
 ### 2. Rot
 
 #### ECDF curves N = 10
@@ -107,6 +126,23 @@ cecb::cec_problem_grid(c(csa$rot, ppmf$rot), 21, config)
 cecb::get_resultTable(csa$rot, 1:10, 10, caption = "CSA (rot)")
 cecb::get_resultTable(ppmf$rot, 1:10, 10, caption = "PPMF (rot)")
 ```
+
+#### ECDF curves N = 20
+
+```{r}
+
+cecb::cec_class_grid(c(csa$rot, ppmf$rot), 20, 21, 30)
+cecb::cec_problem_grid(c(csa$rot, ppmf$rot), 21, config2)
+
+```
+
+#### CEC's tables N = 20
+
+```{r}
+cecb::get_resultTable(csa$rot, 1:10, 20, caption = "CSA (rot)")
+cecb::get_resultTable(ppmf$rot, 1:10, 20, caption = "PPMF (rot)")
+```
+
 
 ### 3. Shift
 
@@ -127,6 +163,24 @@ cecb::get_resultTable(ppmf$shift, 1:10, 10, caption = "PPMF (shift)")
 
 ```
 
+#### ECDF curves N = 20
+
+```{r}
+
+cecb::cec_class_grid(c(csa$shift, ppmf$shift), 20, 21, 30)
+cecb::cec_problem_grid(c(csa$shift, ppmf$shift), 21, config2)
+
+```
+
+#### CEC's tables N = 20
+
+```{r}
+cecb::get_resultTable(csa$shift, 1:10, 20, caption = "CSA (shift)")
+cecb::get_resultTable(ppmf$shift, 1:10, 20, caption = "PPMF (shift)")
+
+```
+
+
 ### 4. Bias
 
 #### ECDF curves N = 10
@@ -142,6 +196,20 @@ cecb::cec_problem_grid(c(csa$bias, ppmf$bias), 21, config)
 cecb::get_resultTable(csa$bias, 1:10, 10, caption = "CSA (bias)")
 cecb::get_resultTable(ppmf$bias, 1:10, 10, caption = "PPMF (bias)")
 ```
+#### ECDF curves N = 20
+
+```{r}
+cecb::cec_class_grid(c(csa$bias, ppmf$bias), 20, 21, 30)
+cecb::cec_problem_grid(c(csa$bias, ppmf$bias), 21, config2)
+```
+
+#### CEC's tables N = 20
+
+```{r}
+cecb::get_resultTable(csa$bias, 1:10, 20, caption = "CSA (bias)")
+cecb::get_resultTable(ppmf$bias, 1:10, 20, caption = "PPMF (bias)")
+```
+
 
 ### 5. Bias-shift-rot
 
@@ -198,14 +266,27 @@ cecb::get_resultTable(ppmf$bias_shift, 1:10, 10, caption = "PPMF (bias x shift)"
 #### ECDF curves N = 10
 
 ```{r}
-#cecb::cec_class_grid(c(csa$bias_rot, ppmf$bias_shift), 10, 21, 30)
-#cecb::cec_problem_grid(c(csa$bias_rot, ppmf$bias_shift), 21, config)
+cecb::cec_class_grid(c(csa$bias_rot, ppmf$bias_shift), 10, 21, 30)
+cecb::cec_problem_grid(c(csa$bias_rot, ppmf$bias_shift), 21, config)
 ```
 
 #### CEC's tables N = 10
 
 ```{r}
-#cecb::get_resultTable(csa$bias_rot, 1:10, 10, caption = "CSA (bias x rot)")
-#cecb::get_resultTable(ppmf$bias_rot, 1:10, 10, caption = "PPMF (bias x rot)")
+cecb::get_resultTable(csa$bias_rot, 1:10, 10, caption = "CSA (bias x rot)")
+cecb::get_resultTable(ppmf$bias_rot, 1:10, 10, caption = "PPMF (bias x rot)")
+```
+#### ECDF curves N = 20
+
+```{r}
+cecb::cec_class_grid(c(csa$bias_rot, ppmf$bias_shift), 20, 21, 30)
+cecb::cec_problem_grid(c(csa$bias_rot, ppmf$bias_shift), 21, config2)
+```
+
+#### CEC's tables N = 20
+
+```{r}
+cecb::get_resultTable(csa$bias_rot, 1:10, 20, caption = "CSA (bias x rot)")
+cecb::get_resultTable(ppmf$bias_rot, 1:10, 20, caption = "PPMF (bias x rot)")
 ```
 

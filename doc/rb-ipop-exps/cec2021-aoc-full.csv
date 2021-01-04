@@ -1,0 +1,9 @@
+Method,Aoc
+ipop-cma-es-csa-basic,1.839679245283019
+rb-ipop-cma-es-csa-best,1.94423144654088
+ipop-cma-es-ppmf-basic,1.9810465408805022
+rb-ipop-cma-es-ppmf-best-no-ss,2.0341194968553458
+rb-ipop-cma-es-ppmf-ave-no-ss,2.19194465408805
+rb-ipop-cma-es-ppmf-mean-no-ss,2.204008805031447
+rb-ipop-cma-es-csa-mean,2.2489949685534585
+rb-ipop-cma-es-csa-ave,2.2827911949685538
