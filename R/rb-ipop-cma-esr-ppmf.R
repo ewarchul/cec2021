@@ -5,6 +5,7 @@ library(magrittr)
 #' RB-IPOP-CMAES-PPMF
 #'
 #' @description Implementation of PPMF with IPOP rule based on https://ieeexplore.ieee.org/document/7969479
+#' and {cmaesr} package  https://github.com/jakobbossek/cmaesr
 #' @param last_its_type Type of LastIts restart trigger: mean | best | ave :: String
 
 rb_ipop_cma_esr_ppmf = function(
