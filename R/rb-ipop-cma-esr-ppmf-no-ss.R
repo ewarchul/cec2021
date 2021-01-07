@@ -2,9 +2,10 @@ library(BBmisc)
 library(checkmate)
 library(magrittr)
 
-#' RB-IPOP-CMAES-PPMF
+#' RB-IPOP-CMAES-PPMF without sigma supress mechanism
 #'
 #' @description Implementation of PPMF with IPOP rule based on https://ieeexplore.ieee.org/document/7969479
+#' and {cmaesr} package  https://github.com/jakobbossek/cmaesr
 #' @param last_its_type Type of LastIts restart trigger: mean | best | ave :: String
 
 rb_ipop_cma_esr_ppmf_no_ss = function(
