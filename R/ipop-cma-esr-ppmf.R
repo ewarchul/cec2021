@@ -2,6 +2,11 @@ library(BBmisc)
 library(magrittr)
 library(checkmate)
 
+#' IPOP-CMA-ES-PPMF 
+#' 
+#' @description Modified version of {cmaesr}
+#' https://github.com/jakobbossek/cmaesr
+
 ipop_cma_esr_ppmf = function(
   par,
   fn,

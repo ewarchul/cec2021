@@ -1,6 +1,11 @@
 library(BBmisc)
 library(checkmate)
 
+#' IPOP-CMA-ES-CSA 
+#' 
+#' @description Modified version of {cmaesr}
+#' https://github.com/jakobbossek/cmaesr
+
 ipop_cma_esr_csa = function(
   par,
   fn,

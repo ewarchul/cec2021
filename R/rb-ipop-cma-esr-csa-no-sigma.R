@@ -4,7 +4,9 @@ library(magrittr)
 
 #' RB-IPOP-CMAES-CSA
 #'
-#' @description Implementation of https://ieeexplore.ieee.org/document/7969479
+#' @description 
+#' Implementation of https://ieeexplore.ieee.org/document/7969479 based on
+#' {cmaesr} package https://github.com/jakobbossek/cmaesr
 
 rb_ipop_cma_esr_csa_no_ss = function(
   par,
