@@ -1,0 +1,26 @@
+methods:
+     1:
+       algorithm: "rb_ipop_cma_esr_ppmf"
+       params: 
+        - "last_its_type"
+       values:
+        - "mean"
+     2:
+       algorithm: "rb_ipop_cma_esr_ppmf"
+       params: 
+        - "last_its_type"
+       values:
+        - "best"
+ids:
+  - "ppmf-r-mean"
+  - "ppmf-r-best"
+probnum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+dims:
+  - 10
+  - 20
+cec: 21
+repnum: 30
+suite: "rot"
+cpupc: 0.75
+source: "~/cec2020/R"
+dest: "~/cec2020/data/final"

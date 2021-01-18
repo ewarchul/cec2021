@@ -2,13 +2,13 @@ library(BBmisc)
 library(checkmate)
 library(magrittr)
 
-#' RB-IPOP-CMAES-PPMF
+#' RB-IPOP-CMAES-PPMF without sigma supress mechanism
 #'
 #' @description Implementation of PPMF with IPOP rule based on https://ieeexplore.ieee.org/document/7969479
 #' and {cmaesr} package  https://github.com/jakobbossek/cmaesr
 #' @param last_its_type Type of LastIts restart trigger: mean | best | ave :: String
 
-rb_ipop_cma_esr_ppmf = function(
+rb_ipop_cma_esr_ppmf_no_ss = function(
   par,
   fn,
   ...,
@@ -35,8 +35,7 @@ rb_ipop_cma_esr_ppmf = function(
       list(stopOnIndefCovMat()),
       list(stopOnNoEffectAxis()),
       list(stopOnNoEffectCoord()),
-      list(stopOnLastIts()),
-      list(stopOnSigSupress())
+      list(stopOnLastIts())
     )
   stop.ons = getCMAESParameter(control, "stop.ons", stop_ons_list)
   if (is.null(stop.ons)) {
@@ -48,7 +47,7 @@ rb_ipop_cma_esr_ppmf = function(
 
   # restart mechanism (IPOP-CMA-ES)
   # RB-IPOP: new restart triggers ->  lastIts and sigSupress 
-  restart.triggers = list("conditionCov", "noEffectCoord", "noEffectAxis", "tolX", "indefCovMat", "lastIts", "sigSupress")
+  restart.triggers = list("conditionCov", "noEffectCoord", "noEffectAxis", "tolX", "indefCovMat", "lastIts")
 
   stop.ons.names = sapply(stop.ons, function(stop.on) stop.on$code)
   if (!isSubset(restart.triggers, stop.ons.names)) {
@@ -93,6 +92,9 @@ rb_ipop_cma_esr_ppmf = function(
 
   max_dx = (ub - lb) / 5
   last_its = 10 + ceiling(30 * n / (4 * n))
+  print(sigma)
+  print(d_param)
+  print(p_target)
 
   for (run in 0:max.restarts) {
     # population and offspring size
@@ -258,13 +260,6 @@ rb_ipop_cma_esr_ppmf = function(
       sigma = 
         sigma * exp(d_param * (p_succ - p_target) / (1 - p_target))
       
-
-      # RB-IPOP: Sigma repair mechanism 
-      if (any(sigma * sqrt(diag(C)) > max_dx)) {
-        sigma <- min(max_dx / sqrt(diag(C))) / 4
-        sigma.repair.cnt <- sigma.repair.cnt + 1
-      }
-      
       # Finally do decomposition C = B D^2 B^T
       e = eigen(C, symmetric = TRUE)
       B = e$vectors
@@ -275,7 +270,7 @@ rb_ipop_cma_esr_ppmf = function(
       # escape flat fitness values
       # RB-IPOP: Increase sigma multiplier by 2
       if (fitn.ordered[1] == fitn.ordered[min(1+floor(lambda/2), 2+ceiling(lambda/4))]) {
-        sigma = 2 * sigma * exp(0.2 + cs / ds)
+        sigma = 20 * sigma * exp(0.2 + cs / ds)
       }
 
       # CHECK STOPPING CONDITIONS
@@ -312,7 +307,7 @@ rb_ipop_cma_esr_ppmf = function(
       past.time = as.integer(difftime(Sys.time(), start.time, units = "secs")),
       n.iters = iter - 1L,
       n.restarts = run,
-      label = "rb_ipop_cma_esr_ppmf",
+      label = "rb_ipop_cma_esr_ppmf_no_ss",
       population.trace = population.trace,
       diagnostic = log,
       message = stop.obj$stop.msgs,

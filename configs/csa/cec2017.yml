@@ -1,0 +1,25 @@
+methods:
+     1:
+       algorithm: "rb_ipop_cma_esr_csa"
+       params: 
+        - "last_its_type"
+       values:
+        - "mean"
+     2:
+       algorithm: "rb_ipop_cma_esr_csa"
+       params: 
+        - "last_its_type"
+       values:
+        - "best"
+ids:
+  - "csa-cec17-mean"
+  - "csa-cec17-best"
+probnum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+dims:
+  - 30
+cec: 17
+repnum: 30
+suite: "bias_shift_rot"
+cpupc: 0.75
+source: "~/cec2020/R"
+dest: "~/cec2020/data/final"
