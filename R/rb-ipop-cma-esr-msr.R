@@ -361,7 +361,6 @@ checkStoppingConditions = function(stop.ons, envir = parent.frame()) {
     if (shouldStop(stop.on, envir = envir)) {
       stop.msgs = c(stop.msgs, stop.on$message)
       codes = c(codes, stop.on$code)
-      print(codes)
       # since some stopping conditions need a "correct" covariance matrix
       # we stop here if the first condition is met (infefCovMat is first)
       break
