@@ -3,17 +3,12 @@ methods:
        algorithm: "rb_ipop_cma_esr_ppmf"
        params: 
         - "last_its_type"
+        - "p_target"
        values:
-        - "mean"
-     2:
-       algorithm: "rb_ipop_cma_esr_ppmf"
-       params: 
-        - "last_its_type"
-       values:
-        - "best"
+        - "ave"
+        - 0.2
 ids:
-  - "ppmf-bsr-mean"
-  - "ppmf-bsr-best"
+  - "ppmf-bsr-ave"
 probnum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 dims:
   - 10
