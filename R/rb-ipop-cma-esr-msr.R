@@ -27,8 +27,10 @@ rb_ipop_cma_esr_msr = function(
   # get stopping conditions
   budget = if (n == 10) {
     200000
-  } else {
+  } else if (n == 20) {
     1000000
+  } else {
+	10000 * n
   }
   stop_ons_list = 
     c(
