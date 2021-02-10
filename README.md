@@ -42,7 +42,7 @@ d^(0:15/5 - 3) * maxFES
 
 where `d` stands for the dimension and `maxFES` is budget for objective function evaluation.
 
-The data from the directory `M/` stores the error values recorded in the same manner as in CEC 2017:
+The data from the directory `M/` stores the error values recorded in the same manner as in CEC 2017 (or older):
 
 ```r
 c(0.01, 0.02, 0.03, 0.05, seq(0.1, 1, 0.1)) * maxFES
