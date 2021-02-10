@@ -1,28 +1,26 @@
-# CEC 2021 NBO
+# CEC 2021
 
 ## About 
 
 This repository contains results of numerical experiments performed on CEC 2021 for the paper
 
-```
-The step-size adaptation procedure utilizing fitness of the population midpoint
-```
+##### The step-size adaptation procedure utilizing fitness of the population midpoint
 
 It also contains source code of used optimization algorithms and script to reproduce conducted experiments.  
 
 ## Content 
 
-* `R/` stores implementation of used algorithms in *R* 
+* `R/` stores implementation of used algorithms in **R** 
 * `data/` stores obtained data from numerical experiments:
     - `cec13` has data from CEC 2013
     - `cec17` has data from CEC 2017
     - `cec21` has data from CEC 2021
-* `time-complexity` contains *R* script to compute complexity of considered algorithm in the paper
+* `time-complexity` contains **R** script to compute complexity of considered algorithm in the paper
 * `configs` stores benchmark configuration files written in `YAML`.
 
 ### Algorithms
 
-Each algorithm is implemented in *R* programming language and based on the source code of the CRAN package [https://cran.r-project.org/web/packages/cmaesr/index.html]({cmaesr}).
+Each algorithm is implemented in **R** programming language and based on the source code of the CRAN package [{cmaesr}](https://cran.r-project.org/web/packages/cmaesr/index.html).
 
 ### Data 
 
@@ -42,9 +40,9 @@ c(0.01, 0.02, 0.03, 0.05, seq(0.1, 1, 0.1)) * maxFES
 
 ### Benchmark configs
 
-Experiments were performed using [https://github.com/ewarchul/cecb]({cecb}), i.e. the *R* package written by me; mainly for the self-purposes. The package executes CECs experiments using `YAML` data-serialization language. See the documentation for further details. 
+Experiments were performed using [{cecb}](https://github.com/ewarchul/cecb), i.e. the **R** package written by me; mainly for the self-purposes. The package executes CECs experiments using `YAML` data-serialization language. See the documentation for further details. 
 
-Also, we used [https://github.com/ewarchul/cecs]({cecs}) package which provides interface from *R* to the benchmark functions implemented in *C*.
+Also, we used [{cecs}](https://github.com/ewarchul/cecs) package which provides interface from **R** to the benchmark functions implemented in **C**.
 
 
 ## Experiment reproduction
@@ -56,7 +54,7 @@ docker build -t cec_experiments .
 docker run cec_experiments --cec="[CEC_VERSION | all]"
 ```
 
-Those commands will build `docker` image and execute *bash* script which takes option `cec`:
+Those commands will build `docker` image and execute **bash** script which takes option `cec`:
 
 - set `--cec` equals to `CEC_VERSION` which takes values from {2013, 2017, 2021} to reproduce experiments only for the one CEC version 
 - set `--cec` equals to `all` to reproduce all experiments presented in the paper.
