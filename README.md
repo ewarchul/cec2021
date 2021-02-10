@@ -1,5 +1,15 @@
 # CEC 2021
 
+<!--ts-->
+   * [About](#about)
+   * [Content](#content)
+      * [Algorithms](#linux-and-windows)
+      * [Data](#macos)
+      * [Benchmark configs](#benchmark-configs)
+   * [Experiments reproduction](#experiments-reproduction)
+   * [Contact](#contact)
+<!--te-->
+
 ## About 
 
 This repository contains results of numerical experiments performed on CEC 2021 for the paper:
@@ -45,7 +55,7 @@ Experiments were performed using [{cecb}](https://github.com/ewarchul/cecb), i.e
 Also, we used [{cecs}](https://github.com/ewarchul/cecs) package which provides an interface from **R** to the benchmark functions implemented in **C**.
 
 
-## Experiment reproduction
+## Experiments reproduction
 
 If you want to reproduce our results you have to have installed docker in version 19.03.8 on your machine and run the commands written below in the root directory of the repository:
 
