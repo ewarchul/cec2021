@@ -49,9 +49,19 @@ Also, we used [{cecs}](https://github.com/ewarchul/cecs) package which provides 
 
 If you want to reproduce our results you have to have installed docker in version 19.03.8 on your machine and run the commands written below in the root directory of the repository:
 
+
+##### Linux/Unix
+
 ```bash
-docker build -t cec_experiments . 
-docker run cec_experiments --cec="[CEC_VERSION | all]"
+docker build -t cec2020 . 
+docker run -it --rm -v ${PWD}:/cec2020 cec2020 [CEC_VERSION | all]
+```
+
+##### Windows
+
+```bash
+docker build -t cec2020 . 
+docker run -it --rm -v ${PWD}:/cec2020 cec2020 [CEC_VERSION | all]
 ```
 
 Those commands will build `docker` image and execute **bash** script which takes option `cec`:
