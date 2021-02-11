@@ -12,14 +12,15 @@ methods:
        values:
         - "best"
 ids:
-  - "csa-cec13-mean"
-  - "csa-cec13-best"
-probnum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
+  - "csa-basic-mean"
+  - "csa-basic-best"
+probnum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 dims:
-  - 30
-cec: 13
+  - 10
+  - 20
+cec: 21
 repnum: 30
-suite: "bias_shift_rot"
+suite: "basic"
 cpupc: 0.75
-source: "~/cec2020/R"
-dest: "~/cec2020/data/final"
+source: "/cec2020/R"
+dest: "/cec2020/data/reproduction"
