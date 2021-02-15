@@ -71,13 +71,13 @@ docker run -it --rm -v ${PWD}:/cec2020 cec2020 [CEC_VERSION | all]
 
 ```bash
 docker build -t cec2020 . 
-docker run -it --rm -v ${PWD}:/cec2020 cec2020 [CEC_VERSION | all]
+docker run -it --rm -v %cd%:/cec2020 cec2020 [CEC_VERSION | all]
 ```
 
-Those commands will build `docker` image and execute the **bash** script which takes option `cec`:
+Those commands will build `docker` image and execute the **bash** script which takes options:
 
-- set `--cec` equals to `CEC_VERSION` which takes values from {2013, 2017, 2021} to reproduce experiments only for the one CEC version 
-- set `--cec` equals to `all` to reproduce all experiments presented in the paper.
+- `CEC_VERSION` which takes values from {2013, 2017, 2021} to reproduce experiments only for the one CEC version 
+- `all` which reproduces all experiments presented in the paper.
 
 ## Contact 
 
