@@ -18,7 +18,7 @@ for (D in c(10, 20)) {
   endTimeT0 = base::Sys.time()
   T0 = endTimeT0 - startTimeT0
   
-  starTimeT1 = base::Sys.time()
+  startTimeT1 = base::Sys.time()
   rb_ipop_cma_esr_ppmf(
     par = runif(D, -100, 100),
     fn = function(x) { cecs::cec2021(1, x, "basic") }
@@ -28,7 +28,7 @@ for (D in c(10, 20)) {
 
   vecT2 = c()
   for (k in 1:5) {
-    starTimeT2 = base::Sys.time()
+    startTimeT2 = base::Sys.time()
     rb_ipop_cma_esr_ppmf(
       par = runif(D, -100, 100),
       fn = function(x) { cecs::cec2021(1, x, "basic") }
