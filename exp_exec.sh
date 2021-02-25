@@ -3,7 +3,7 @@
 MODE=$1
 CECPATH=/cec2020
 SUITES=(
-  "basic" "shift" "rot" "bias" "bias-rot" "bias-shift-rot" "bias-shift""shift-rot"
+  "basic" "shift" "rot" "bias" "bias-rot" "bias-shift-rot" "bias-shift" "shift-rot"
 )
 
 ######################################
