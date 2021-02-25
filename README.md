@@ -74,7 +74,7 @@ docker build -t cec2020 .
 docker run -it --rm -v %cd%:/cec2020 cec2020 [CEC_VERSION | all]
 ```
 
-Those commands will build `docker` image and execute the **bash** script which takes options:
+These commands will build `docker` image and execute the **bash** script which takes options:
 
 - `CEC_VERSION` which takes values from {2013, 2017, 2021} to reproduce experiments only for the one CEC version 
 - `all` which reproduces all experiments presented in the paper.
