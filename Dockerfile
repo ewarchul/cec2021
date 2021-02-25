@@ -9,8 +9,14 @@ RUN apt-get -y update && \
   pkg-config r-base libxml2-dev libssl-dev && \
   apt-get clean 
 
-COPY ./dependencies.R /
+COPY ./lib /deps
 
-RUN Rscript dependencies.R
+COPY dependencies.R /deps
 
+RUN Rscript /deps/dependencies.R
 
+COPY exp_exec.sh /
+
+RUN chmod 755 /exp_exec.sh
+
+ENTRYPOINT ["/exp_exec.sh"]

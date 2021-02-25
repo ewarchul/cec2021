@@ -1,7 +1,8 @@
 library(BBmisc)
 library(checkmate)
 library(magrittr)
-source("cmaesr-utils.R")
+library(here)
+source(here::here("R", "cmaesr-utils.R"))
 
 #' RB-IPOP-CMAES-MSR
 #'

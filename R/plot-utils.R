@@ -53,25 +53,26 @@ set_paper_names = function(dfx, cec) {
                                     ifelse(Method == interp_("ppmf-bsr-ave"), "RB-IPOP-PPMF", "X")))))
     )
   }
+
 }
 
 get_cec_plot = function(cec, dim, prob, rep) {
   interp_ = stringr::str_interp
   if (cec %in% c(13, 14, 17)) {
     paths = c(
-      interp_("~/cec2020/data/final/cec${cec}/csa-cec${cec}-best"),
-      interp_("~/cec2020/data/final/cec${cec}/csa-cec${cec}-mean"),
-      interp_("~/cec2020/data/final/cec${cec}/msr-cec${cec}-best"),
-      interp_("~/cec2020/data/final/cec${cec}/msr-cec${cec}-mean"),
-      interp_("~/cec2020/data/final/cec${cec}/ppmf-cec${cec}-ave")
+      interp_("~/cec2020/data/cec${cec}/csa-cec${cec}-best"),
+      interp_("~/cec2020/data/cec${cec}/csa-cec${cec}-mean"),
+      interp_("~/cec2020/data/cec${cec}/msr-cec${cec}-best"),
+      interp_("~/cec2020/data/cec${cec}/msr-cec${cec}-mean"),
+      interp_("~/cec2020/data/cec${cec}/ppmf-cec${cec}-ave")
     )
   } else {
     paths = c(
-      interp_("~/cec2020/data/final/cec${cec}/csa-bsr-best"),
-      interp_("~/cec2020/data/final/cec${cec}/csa-bsr-mean"),
-      interp_("~/cec2020/data/final/cec${cec}/msr-bsr-best"),
-      interp_("~/cec2020/data/final/cec${cec}/msr-bsr-mean"),
-      interp_("~/cec2020/data/final/cec${cec}/ppmf-bsr-ave")
+      interp_("~/cec2020/data/cec${cec}/csa-bsr-best"),
+      interp_("~/cec2020/data/cec${cec}/csa-bsr-mean"),
+      interp_("~/cec2020/data/cec${cec}/msr-bsr-best"),
+      interp_("~/cec2020/data/cec${cec}/msr-bsr-mean"),
+      interp_("~/cec2020/data/cec${cec}/ppmf-bsr-ave")
     )
   }
   df = 

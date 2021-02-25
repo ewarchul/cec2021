@@ -1,7 +1,7 @@
 library(BBmisc)
 library(checkmate)
 library(magrittr)
-source("cmaesr-utils.R")
+source(here::here("R", "cmaesr-utils.R"))
 
 #' RB-IPOP-CMAES-PPMF without sigma supress mechanism
 #'
@@ -9,7 +9,7 @@ source("cmaesr-utils.R")
 #' and {cmaesr} package  https://github.com/jakobbossek/cmaesr
 #' @param last_its_type Type of LastIts restart trigger: mean | best | ave :: String
 
-rb_ipop_cma_esr_ppmf_no_ss = function(
+rb_ipop_cma_esr_ppmf = function(
   par,
   fn,
   ...,
