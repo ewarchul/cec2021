@@ -14,7 +14,7 @@
 
 This repository contains results of numerical experiments performed on CEC 2021 for the paper:
 
-### *The step-size adaptation procedure utilizing fitness of the population midpoint*
+### *A new step-size adaptation rule for CMA-ES based on the population midpoint fitness*
 
 It also contains the source code of used optimization algorithms and scripts to reproduce conducted experiments.  
 
