@@ -14,7 +14,7 @@
 
 This repository contains results of numerical experiments performed on CEC 2021 for the paper:
 
-### *The step-size adaptation procedure utilizing fitness of the population midpoint*
+### *A new step-size adaptation rule for CMA-ES based on the population midpoint fitness*
 
 It also contains the source code of used optimization algorithms and scripts to reproduce conducted experiments.  
 
@@ -64,7 +64,7 @@ make build
 make run cec=[CEC_VERSION | all]
 ```
 
-Those commands will build `docker` image and execute the **bash** script which takes options:
+These commands will build `docker` image and execute the **bash** script which takes options:
 
 - `CEC_VERSION` which takes values from {2013, 2017, 2021} to reproduce experiments only for the one CEC version 
 - `all` which reproduces all experiments presented in the paper.
