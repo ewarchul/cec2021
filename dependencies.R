@@ -1,11 +1,20 @@
 deps <- c(
   "tidyverse",
   "magrittr",
-  "devtools"
+  "devtools",
+  "zeallot",
+  "iterators",
+  "doParallel",
+  "foreach",
+  "here",
+  "pracma",
+  "future",
+  "furrr",
+  "BBmisc"
 )
 
 diff = deps[
-  !(deps %in% installed.packages()[,"Package"])
+  !(deps %in% installed.packages()[, "Package"])
 ]
 
 if (length(diff)) {
@@ -13,25 +22,26 @@ if (length(diff)) {
 }
 
 install.packages(
-  "cecs_0.1.0.tar.gz",
+  "/deps/cecs_0.1.0.tar.gz",
   repos = NULL,
   type = "source"
 )
 
 install.packages(
-  "cec2017_0.2.0.tar.gz",
+  "/deps/cec2017_0.2.0.tar.gz",
   repos = NULL,
   type = "source"
 )
 
 install.packages(
-  "cec2013_0.1.5.tar.gz",
+  "/deps/cec2013_0.1-5.tar.gz",
   repos = NULL,
   type = "source"
 )
 
 install.packages(
-  "cec2013_0.0.0.9000.tar.gz",
+  "/deps/cecb_0.0.0.9000.tar.gz",
+  dependencies = TRUE,
   repos = NULL,
   type = "source"
 )

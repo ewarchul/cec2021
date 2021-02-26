@@ -15,7 +15,7 @@ SUITES=(
 ######################################
 
 run_experiment () {
-  mkdir -p -m=777 $CECPATH/data/reproduction
+  mkdir -p -m 777 $CECPATH/data/reproduction
   cd $CECPATH
   if [[ $MODE == "all" ]]; then
     exec_all
